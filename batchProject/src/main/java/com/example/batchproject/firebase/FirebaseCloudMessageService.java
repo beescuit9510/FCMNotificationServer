@@ -18,34 +18,29 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @Slf4j
 public class FirebaseCloudMessageService {
-
-//    @Value("${app.firebase-configuration-file}")
-    private static String firebaseConfigPath = "firebase/firebase_service_key.json";
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-    private static final String CONTENT_TYPE = "application/json; UTF-8";
-
-//    private final String API_URL = "https://fcm.googleapis.com/v1/projects/PROJECT_ID/messages:send";
-
-    private final String API_URL = "https://fcm.googleapis.com/v1/projects/test-335bc/messages:send";
+    private ObjectMapper objectMapper = new ObjectMapper();
+    private final String FIREBASE_CONFIG_PATH = "firebase/firebase_service_key.json";
+    private final MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
+    private final String BODY_CONTENT_TYPE = "application/json; UTF-8";
+    private final String PROJECT_ID = "test-335bc";
+    private final String API_URL = "https://fcm.googleapis.com/v1/projects/"+PROJECT_ID+"/messages:send";
+    private final String SCOPE = "https://www.googleapis.com/auth/cloud-platform";
 
 
-    public static FirebaseCloudMessageService createFirebaseCloudMessageService() {
-        return new FirebaseCloudMessageService();
-    }
 
     public int sendMessageTo(PushMessage pushMessage) throws IOException {
         String message = makeMessage(pushMessage);
 
         OkHttpClient client = new OkHttpClient();
-        RequestBody requestBody = RequestBody.create(message,JSON);
+        RequestBody requestBody = RequestBody.create(message,MEDIA_TYPE_JSON);
+
+        final String AUTHORIZATION = "Bearer "+getAccessToken();
 
         Request request = new Request.Builder()
                 .url(API_URL)
                 .post(requestBody)
-                .addHeader(HttpHeaders.AUTHORIZATION,"Bearer "+getAccessToken())
-                .addHeader(HttpHeaders.CONTENT_TYPE, CONTENT_TYPE)
+                .addHeader(HttpHeaders.AUTHORIZATION,AUTHORIZATION)
+                .addHeader(HttpHeaders.CONTENT_TYPE, BODY_CONTENT_TYPE)
                 .build();
 
         Response response = client.newCall(request)
@@ -82,8 +77,8 @@ public class FirebaseCloudMessageService {
     private String getAccessToken() throws IOException {
 
         GoogleCredentials googleCredentials = GoogleCredentials
-                .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
-                .createScoped(Arrays.asList("https://www.googleapis.com/auth/cloud-platform"));
+                .fromStream(new ClassPathResource(FIREBASE_CONFIG_PATH).getInputStream())
+                .createScoped(Arrays.asList(SCOPE));
 
         googleCredentials.refreshIfExpired();
 

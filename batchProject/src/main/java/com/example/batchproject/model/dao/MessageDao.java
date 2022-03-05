@@ -9,10 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class MsgDao {
+public class MessageDao {
+
+    private SqlSessionTemplate sqlSession;
 
     @Autowired
-    private SqlSessionTemplate sqlSession;
+    public MessageDao(SqlSessionTemplate sqlSession) {
+        this.sqlSession = sqlSession;
+    }
 
     public ArrayList<DeviceInformation> selectDeviceInformation() {
         List<DeviceInformation> deviceinfos = sqlSession.selectList("batch.selectDeviceInformation");

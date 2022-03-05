@@ -1,6 +1,5 @@
 package com.example.batchproject.config;
 
-import com.example.batchproject.firebase.FirebaseCloudMessageService;
 import com.example.batchproject.listener.BatchJobExecutionListener;
 import com.example.batchproject.model.vo.StepDataBean;
 import com.example.batchproject.tasklet.reader.MessageReader;
@@ -27,7 +26,6 @@ public class BatchConfiguration {
 
     @Autowired
     private BatchJobExecutionListener jobListener;
-
 
 
     @Bean
@@ -61,18 +59,12 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Tasklet messageSender() {
-        return new MessageSender();
-    }
+    public Tasklet messageSender() { return new MessageSender();}
 
     @Bean
     public StepDataBean stepDataBean() {
         return new StepDataBean();
     }
 
-    @Bean
-    public FirebaseCloudMessageService firebaseCloudMessageService(){
-        return FirebaseCloudMessageService.createFirebaseCloudMessageService();
-    }
 
 }

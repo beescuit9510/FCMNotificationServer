@@ -1,6 +1,6 @@
 package com.example.batchproject.model.service;
 
-import com.example.batchproject.model.dao.MsgDao;
+import com.example.batchproject.model.dao.MessageDao;
 import com.example.batchproject.model.vo.DeviceInformation;
 import com.example.batchproject.model.vo.PushMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class MsgService {
+public class MessageService {
+
+    MessageDao msgDao;
 
     @Autowired
-    MsgDao msgDao;
+    public MessageService(MessageDao msgDao) {
+        this.msgDao = msgDao;
+    }
 
     public ArrayList<DeviceInformation> selectDeviceInformation() {
         return msgDao.selectDeviceInformation();
