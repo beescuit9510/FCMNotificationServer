@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="batch">
+    <select id="selectDeviceInformation" parameterType="int" resultType="com.example.batchproject.model.vo.DeviceInformation">
+        select
+            serial_number as serialNumber,
+            device_os as deviceOs,
+            device_version as deviceVersion,
+            push_token_key as pushTokenKey,
+            registration_date as registrationDate
+        from device_information
+        where serial_number > #{prevPk}
+    </select>
+    <select id="selectMessage" resultType="com.example.batchproject.model.vo.PushMessage">
+        select
+            push_message_no as pushMessageNo,
+            title,
+            body,
+            image,
+            is_sent as isSent,
+            push_token_key as pushTokenKey
+        from push_message
+        where is_sent = FALSE
+    </select>
+    <select id="updateMessage" parameterType="_long" resultType="int">
+        update
+            push_message
+        set
+          is_sent = TRUE
+        where is_sent = FALSE and push_message_no = #{pushMessageNo}
+    </select>
+
+</mapper>
