@@ -1,0 +1,21 @@
+spring :
+  datasource :
+    platform : mysql
+    driver-class-name : com.mysql.cj.jdbc.Driver
+    url : jdbc:mysql://localhost:3306/test?serverTimezone=UTC&characterEncoding=UTF-8
+    username : jangyunyoung
+    password : 9510
+    initialization-mode: never
+
+server :
+  port : 9090
+
+
+firebase :
+  configuration-file : firebase/firebase_service_key.json
+  project-id : test-335bc
+  content-type : application/json; UTF-8
+  scope : https://www.googleapis.com/auth/cloud-platform
+
+job :
+  cron :
