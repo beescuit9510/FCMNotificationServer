@@ -11,7 +11,6 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,11 +18,14 @@ import java.util.Map;
 @Component
 public class JobScheduler {
 
-    @Autowired
     private JobLauncher jobLauncher;
+    private BatchConfiguration jobConfiguration;
 
     @Autowired
-    private BatchConfiguration jobConfiguration;
+    public JobScheduler(JobLauncher jobLauncher, BatchConfiguration jobConfiguration) {
+        this.jobLauncher = jobLauncher;
+        this.jobConfiguration = jobConfiguration;
+    }
 
     @Scheduled(cron="0 0/1 * 1/1 * *")
     public void runJob() {

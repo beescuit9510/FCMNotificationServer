@@ -1,6 +1,8 @@
 package com.example.batchproject.config;
 
+import com.example.batchproject.firebase.FirebaseCloudMessageService;
 import com.example.batchproject.listener.BatchJobExecutionListener;
+import com.example.batchproject.model.service.MessageService;
 import com.example.batchproject.model.vo.StepDataBean;
 import com.example.batchproject.tasklet.reader.MessageReader;
 import com.example.batchproject.tasklet.sender.MessageSender;
@@ -18,15 +20,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BatchConfiguration {
 
-    @Autowired
     private JobBuilderFactory jobBuilderFactory;
-
-    @Autowired
     private StepBuilderFactory stepBuilderFactory;
+    private BatchJobExecutionListener jobListener;
+    private FirebaseCloudMessageService firebaseCloudMessageService;
+    private MessageService messageService;
 
     @Autowired
-    private BatchJobExecutionListener jobListener;
-
+    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, BatchJobExecutionListener jobListener, FirebaseCloudMessageService firebaseCloudMessageService, MessageService messageService) {
+        this.jobBuilderFactory = jobBuilderFactory;
+        this.stepBuilderFactory = stepBuilderFactory;
+        this.jobListener = jobListener;
+        this.firebaseCloudMessageService = firebaseCloudMessageService;
+        this.messageService = messageService;
+    }
 
     @Bean
     public Job job() {
@@ -55,11 +62,13 @@ public class BatchConfiguration {
 
     @Bean
     public Tasklet messageReader() {
-        return new MessageReader();
+        return new MessageReader(messageService, stepDataBean());
     }
 
     @Bean
-    public Tasklet messageSender() { return new MessageSender();}
+    public Tasklet messageSender() {
+        return new MessageSender(messageService, stepDataBean(), firebaseCloudMessageService);
+    }
 
     @Bean
     public StepDataBean stepDataBean() {

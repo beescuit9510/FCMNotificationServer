@@ -2,6 +2,7 @@ package com.example.batchproject.model.dao;
 
 import com.example.batchproject.model.vo.DeviceInformation;
 import com.example.batchproject.model.vo.PushMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@Slf4j
 public class MessageDao {
 
     private SqlSessionTemplate sqlSession;
@@ -19,13 +21,13 @@ public class MessageDao {
     }
 
     public ArrayList<DeviceInformation> selectDeviceInformation() {
-        List<DeviceInformation> deviceinfos = sqlSession.selectList("batch.selectDeviceInformation");
-        return (ArrayList<DeviceInformation>)deviceinfos;
+        List<DeviceInformation> deviceInfos = sqlSession.selectList("batch.selectDeviceInformation");
+        return (ArrayList<DeviceInformation>)deviceInfos;
     }
 
     public ArrayList<PushMessage> selectMessage() {
-        List<PushMessage> msgs = sqlSession.selectList("batch.selectMessage");
-        return (ArrayList<PushMessage>)msgs;
+        List<PushMessage> messages = sqlSession.selectList("batch.selectMessage");
+        return (ArrayList<PushMessage>)messages;
     }
 
     public int updateMessage(Long pushMessageNo) {

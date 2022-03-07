@@ -11,23 +11,21 @@ import java.util.ArrayList;
 @Service
 public class MessageService {
 
-    MessageDao msgDao;
+    MessageDao messageDao;
 
     @Autowired
     public MessageService(MessageDao msgDao) {
-        this.msgDao = msgDao;
+        this.messageDao = msgDao;
     }
 
     public ArrayList<DeviceInformation> selectDeviceInformation() {
-        return msgDao.selectDeviceInformation();
+        return messageDao.selectDeviceInformation();
     }
 
-    public ArrayList<PushMessage> selectMessage() {
-        return msgDao.selectMessage();
-    }
+    public ArrayList<PushMessage> selectMessage() {return messageDao.selectMessage();}
 
     public int updateMessage(Long pushMessageNo) {
-        return msgDao.updateMessage(pushMessageNo);
+        return messageDao.updateMessage(pushMessageNo);
     }
 
 }

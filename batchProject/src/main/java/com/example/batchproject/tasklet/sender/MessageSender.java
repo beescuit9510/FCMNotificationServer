@@ -15,23 +15,26 @@ import java.util.ArrayList;
 @Slf4j
 public class MessageSender implements Tasklet{
 
-    @Autowired
-    MessageService msgService;
+    private MessageService msgService;
+    private StepDataBean stepDataBean;
+    private FirebaseCloudMessageService firebaseFCMService;
+
+    private static final int OK_STATUS_CODE = 200;
 
     @Autowired
-    StepDataBean stepDataBean;
+    public MessageSender(MessageService msgService, StepDataBean stepDataBean, FirebaseCloudMessageService firebaseFCMService) {
+        this.msgService = msgService;
+        this.stepDataBean = stepDataBean;
+        this.firebaseFCMService = firebaseFCMService;
+    }
 
-    @Autowired
-    FirebaseCloudMessageService firebaseFCMService;
-    private final int OK_STATUS_CODE = 200;
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
 
         ArrayList<PushMessage> messages = stepDataBean.getPushMessages();
 
-        if(messages==null) return RepeatStatus.FINISHED;
-
+        if(messages.size()==0) return RepeatStatus.FINISHED;
 
         for (PushMessage message : messages) {
 

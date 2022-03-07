@@ -14,14 +14,16 @@ import java.util.ArrayList;
 
 
 @Slf4j
-public class MessageReader implements Tasklet{
+public class MessageReader implements Tasklet {
+
+    private MessageService msgService;
+    private StepDataBean stepDataBean;
 
     @Autowired
-    MessageService msgService;
-
-    @Autowired
-    StepDataBean stepDataBean;
-
+    public MessageReader(MessageService msgService, StepDataBean stepDataBean) {
+        this.msgService = msgService;
+        this.stepDataBean = stepDataBean;
+    }
 
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
