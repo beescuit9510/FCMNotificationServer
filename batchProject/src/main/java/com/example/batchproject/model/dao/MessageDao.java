@@ -25,13 +25,13 @@ public class MessageDao {
         return (ArrayList<DeviceInformation>)deviceInfos;
     }
 
-    public ArrayList<PushMessage> selectMessage() {
-        List<PushMessage> messages = sqlSession.selectList("batch.selectMessage");
+    public ArrayList<PushMessage> selectMessageToSend() {
+        List<PushMessage> messages = sqlSession.selectList("batch.selectMessageToSend");
         return (ArrayList<PushMessage>)messages;
     }
 
-    public int updateMessage(Long pushMessageNo) {
-        int result = sqlSession.update("batch.updateMessage", pushMessageNo);
+    public int updateIsSentTrue(Long pushMessageNo) {
+        int result = sqlSession.update("batch.updateIsSentTrue", pushMessageNo);
         return result;
     }
 

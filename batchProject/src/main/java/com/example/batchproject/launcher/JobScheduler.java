@@ -1,6 +1,6 @@
 package com.example.batchproject.launcher;
 
-import com.example.batchproject.config.BatchConfiguration;
+import com.example.batchproject.config.JobConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
@@ -19,10 +19,10 @@ import java.util.Map;
 public class JobScheduler {
 
     private JobLauncher jobLauncher;
-    private BatchConfiguration jobConfiguration;
+    private JobConfig jobConfiguration;
 
     @Autowired
-    public JobScheduler(JobLauncher jobLauncher, BatchConfiguration jobConfiguration) {
+    public JobScheduler(JobLauncher jobLauncher, JobConfig jobConfiguration) {
         this.jobLauncher = jobLauncher;
         this.jobConfiguration = jobConfiguration;
     }

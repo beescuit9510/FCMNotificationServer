@@ -11,7 +11,7 @@
         from device_information
         where serial_number > #{prevPk}
     </select>
-    <select id="selectMessage" resultType="com.example.batchproject.model.vo.PushMessage">
+    <select id="selectMessageToSend" resultType="com.example.batchproject.model.vo.PushMessage">
         select
             push_message_no as pushMessageNo,
             title,
@@ -21,8 +21,9 @@
             push_token_key as pushTokenKey
         from push_message
         where is_sent = FALSE
+        ORDER BY push_message_no ASC
     </select>
-    <select id="updateMessage" parameterType="_long" resultType="int">
+    <select id="updateIsSentTrue" parameterType="_long" resultType="int">
         update
             push_message
         set

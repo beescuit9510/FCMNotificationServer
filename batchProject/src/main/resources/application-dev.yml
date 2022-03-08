@@ -18,4 +18,4 @@ firebase :
   scope : https://www.googleapis.com/auth/cloud-platform
 
 job :
-  cron :
+  cron : 0 0/1 * 1/1 * *

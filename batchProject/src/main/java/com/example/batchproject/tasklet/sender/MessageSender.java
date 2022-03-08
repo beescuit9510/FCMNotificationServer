@@ -43,7 +43,7 @@ public class MessageSender implements Tasklet{
             log.info(message.toString());
             log.info("STATUS CODE : "+statusCode);
 
-            updateMessage(statusCode, message);
+            updateIsSentTrue(statusCode, message);
 
 
         }
@@ -51,9 +51,9 @@ public class MessageSender implements Tasklet{
 
     }
 
-    private void updateMessage(int statusCode, PushMessage message){
+    private void updateIsSentTrue(int statusCode, PushMessage message){
         if (statusCode==OK_STATUS_CODE){
-            msgService.updateMessage(message.getPushMessageNo());
+            msgService.updateIsSentTrue(message.getPushMessageNo());
         }
     }
 }

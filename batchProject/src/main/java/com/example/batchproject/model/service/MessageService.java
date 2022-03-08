@@ -22,10 +22,10 @@ public class MessageService {
         return messageDao.selectDeviceInformation();
     }
 
-    public ArrayList<PushMessage> selectMessage() {return messageDao.selectMessage();}
+    public ArrayList<PushMessage> selectMessageToSend() {return messageDao.selectMessageToSend();}
 
-    public int updateMessage(Long pushMessageNo) {
-        return messageDao.updateMessage(pushMessageNo);
+    public int updateIsSentTrue(Long pushMessageNo) {
+        return messageDao.updateIsSentTrue(pushMessageNo);
     }
 
 }

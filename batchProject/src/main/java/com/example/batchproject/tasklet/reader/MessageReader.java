@@ -28,7 +28,7 @@ public class MessageReader implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
 
-        ArrayList<PushMessage> messages = msgService.selectMessage();
+        ArrayList<PushMessage> messages = msgService.selectMessageToSend();
 
         stepDataBean.setPushMessages(messages);
 

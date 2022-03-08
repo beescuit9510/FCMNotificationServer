@@ -1,7 +1,7 @@
 package com.example.batchproject.config;
 
 import com.example.batchproject.firebase.FirebaseCloudMessageService;
-import com.example.batchproject.listener.BatchJobExecutionListener;
+import com.example.batchproject.listener.JobExecutionListener;
 import com.example.batchproject.model.service.MessageService;
 import com.example.batchproject.model.vo.StepDataBean;
 import com.example.batchproject.tasklet.reader.MessageReader;
@@ -18,16 +18,16 @@ import org.springframework.context.annotation.Configuration;
 
 @EnableBatchProcessing
 @Configuration
-public class BatchConfiguration {
+public class JobConfig {
 
     private JobBuilderFactory jobBuilderFactory;
     private StepBuilderFactory stepBuilderFactory;
-    private BatchJobExecutionListener jobListener;
+    private JobExecutionListener jobListener;
     private FirebaseCloudMessageService firebaseCloudMessageService;
     private MessageService messageService;
 
     @Autowired
-    public BatchConfiguration(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, BatchJobExecutionListener jobListener, FirebaseCloudMessageService firebaseCloudMessageService, MessageService messageService) {
+    public JobConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, JobExecutionListener jobListener, FirebaseCloudMessageService firebaseCloudMessageService, MessageService messageService) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.jobListener = jobListener;
