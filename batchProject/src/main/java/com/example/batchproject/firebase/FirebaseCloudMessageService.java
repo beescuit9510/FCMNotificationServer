@@ -21,31 +21,33 @@ import java.util.Arrays;
 public class FirebaseCloudMessageService {
     private ObjectMapper objectMapper = new ObjectMapper();
     private final MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
+
     private final String BODY_CONTENT_TYPE = "application/json; UTF-8";
     private final String SCOPE_OF_SERVICE = "https://www.googleapis.com/auth/cloud-platform";
-
+    private final String API_URL = "https://fcm.googleapis.com/v1/projects/PROJECT_ID/messages:send";
 
     @Value("${firebase.configuration-file}")
-    private String FIREBASE_CONFIG_PATH;
+    private String firebaseConfigPath;
 
     @Value("${firebase.project-id}")
-    private String PROJECT_ID;
-
-    private final String API_URL = "https://fcm.googleapis.com/v1/projects/"+PROJECT_ID+"/messages:send";
-
+    private String projectId;
 
 
     public int sendMessageTo(PushMessage pushMessage) throws IOException {
+
+        String apiUrlToSendMessagesTo = API_URL.replace("PROJECT_ID",projectId);
+
         String message = makeMessage(pushMessage);
 
         log.info(message);
+
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(message,MEDIA_TYPE_JSON);
 
         final String AUTHORIZATION = "Bearer "+getAccessToken();
 
         Request request = new Request.Builder()
-                .url(API_URL)
+                .url(apiUrlToSendMessagesTo)
                 .post(requestBody)
                 .addHeader(HttpHeaders.AUTHORIZATION,AUTHORIZATION)
                 .addHeader(HttpHeaders.CONTENT_TYPE, BODY_CONTENT_TYPE)
@@ -86,7 +88,7 @@ public class FirebaseCloudMessageService {
     private String getAccessToken() throws IOException {
 
         GoogleCredentials googleCredentials = GoogleCredentials
-                .fromStream(new ClassPathResource(FIREBASE_CONFIG_PATH).getInputStream())
+                .fromStream(new ClassPathResource(firebaseConfigPath).getInputStream())
                 .createScoped(Arrays.asList(SCOPE_OF_SERVICE));
 
         googleCredentials.refreshIfExpired();
