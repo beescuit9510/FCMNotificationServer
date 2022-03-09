@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 
 @Slf4j
-public class MessageSender implements Tasklet{
+public class MessageSender implements Tasklet {
 
     private MessageService msgService;
     private StepDataBean stepDataBean;
