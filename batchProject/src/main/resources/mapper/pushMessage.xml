@@ -24,12 +24,11 @@
         where is_sent = FALSE
         ORDER BY push_message_no ASC
     </select>
-    <select id="updateIsSentTrue" parameterType="_long" resultType="int">
+    <update id="updateIsSentTrue" parameterType="_long" >
         update
             push_message
         set
           is_sent = TRUE
         where is_sent = FALSE and push_message_no = #{pushMessageNo}
-    </select>
-
+    </update>
 </mapper>

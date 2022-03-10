@@ -5,10 +5,10 @@ import com.example.batchproject.model.vo.DeviceInformation;
 import com.example.batchproject.model.vo.PushMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
-public class MessageService{
+public class MessageService {
 
     private final MessageMapper messageMapper;
 
@@ -17,11 +17,13 @@ public class MessageService{
         this.messageMapper = messageMapper;
     }
 
-    public ArrayList<DeviceInformation> selectDeviceInformation() {
-        return (ArrayList<DeviceInformation>) messageMapper.selectDeviceInformation();
+    public List<DeviceInformation> selectDeviceInformation() {
+        return messageMapper.selectDeviceInformation();
     }
 
-    public ArrayList<PushMessage> selectMessageToSend() {return (ArrayList<PushMessage>)messageMapper.selectMessageToSend();}
+    public List<PushMessage> selectMessageToSend() {
+        return messageMapper.selectMessageToSend();
+    }
 
     public int updateIsSentTrue(Long pushMessageNo) {
         return messageMapper.updateIsSentTrue(pushMessageNo);

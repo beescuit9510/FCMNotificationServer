@@ -10,7 +10,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class MessageSender implements Tasklet {
@@ -32,7 +32,7 @@ public class MessageSender implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
 
-        ArrayList<PushMessage> messages = stepDataBean.getPushMessages();
+        List<PushMessage> messages = stepDataBean.getPushMessages();
 
         if(messages.size()==0) return RepeatStatus.FINISHED;
 
