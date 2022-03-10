@@ -14,10 +14,11 @@ public class JobExecutionListener implements org.springframework.batch.core.JobE
 
     @Override
     public void afterJob(JobExecution jobExecution) {
-        if (jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            //job success
-        } else if (jobExecution.getStatus() == BatchStatus.FAILED) {
-            //job failure
+
+        if (jobExecution.getStatus()==BatchStatus.COMPLETED) {
+
+        } else if (jobExecution.getStatus()==BatchStatus.FAILED) {
+
         }
     }
 }

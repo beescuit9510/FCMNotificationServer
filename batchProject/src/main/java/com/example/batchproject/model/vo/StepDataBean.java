@@ -11,5 +11,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @ToString
 public class StepDataBean {
+
     ArrayList<PushMessage> pushMessages;
 }

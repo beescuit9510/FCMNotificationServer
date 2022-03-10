@@ -14,6 +14,9 @@ server :
 firebase :
   configuration-file : firebase/notificationreceiver-service-key.json
   project-id : notificationreceiver-2bcff
-  content-type : application/json; UTF-8
-  scope : https://www.googleapis.com/auth/cloud-platform
-  api-url: https://fcm.googleapis.com/v1/projects/PROJECT_ID/messages:send
+
+logging:
+  config: "classpath:logback-spring.xml"
+
+mybatis:
+  mapper-location: mapper/*.xml

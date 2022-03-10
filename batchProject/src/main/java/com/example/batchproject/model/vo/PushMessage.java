@@ -13,6 +13,7 @@ public class PushMessage {
     private  String body;
     private  String image;
     private  Integer isSent;
-    private  String pushTokenKey;
+    private  Long deviceInformationNo;
+    private String pushTokenKey;
 
 }

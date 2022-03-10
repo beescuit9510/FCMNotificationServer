@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 
-    <property name="LOG_PATH" value="./logs"></property>
+    <property name="LOG_PATH" value="./output/logs"></property>
 <!--    <property name="LOG_PATH" value="~/logs"></property>-->
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -15,7 +15,7 @@
         </encoder>
     </appender>
     <appender name="DAILY_ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/apprApi.log</file>
+        <file>${LOG_PATH}/batch.log</file>
         <encoder>
             <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
@@ -31,21 +31,21 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.apprApi.controller" level="INFO,DEBUG,ERROR">
-        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />
+    <logger name="com.example.batchproject" level="INFO,DEBUG,ERROR">
+        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER"></appender-ref>
     </logger>
 
-    <logger name="com.apprApi.service" level="INFO,DEBUG,ERROR">
-        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />
-    </logger>
+<!--    <logger name="com.apprApi.service" level="INFO,DEBUG,ERROR">-->
+<!--        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />-->
+<!--    </logger>-->
 
-    <logger name="com.apprApi.dao" level="INFO,DEBUG,ERROR">
-        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />
-    </logger>
+<!--    <logger name="com.apprApi.dao" level="INFO,DEBUG,ERROR">-->
+<!--        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />-->
+<!--    </logger>-->
 
-    <logger name="com.apprApi.tests" level="INFO,DEBUG,ERROR">
-        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />
-    </logger>
+<!--    <logger name="com.apprApi.tests" level="INFO,DEBUG,ERROR">-->
+<!--        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />-->
+<!--    </logger>-->
 
 <!--    <logger name="com.apprApi" level="ERROR">-->
 <!--        <appender-ref ref="DAILY_ROLLING_FILE_APPENDER" />-->

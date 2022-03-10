@@ -18,7 +18,8 @@
             body,
             image,
             is_sent as isSent,
-            push_token_key as pushTokenKey
+            device_information_no as deviceInformationNo,
+            (select di.push_token_key from device_information di where di.device_information_no = device_information_no) as pushTokenKey
         from push_message
         where is_sent = FALSE
         ORDER BY push_message_no ASC

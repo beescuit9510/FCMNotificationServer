@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @Service
 public class MessageService {
 
-    MessageDao messageDao;
+    private MessageDao messageDao;
 
     @Autowired
     public MessageService(MessageDao msgDao) {
