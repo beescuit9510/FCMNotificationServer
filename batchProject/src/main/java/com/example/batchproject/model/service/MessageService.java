@@ -1,31 +1,30 @@
 package com.example.batchproject.model.service;
 
-import com.example.batchproject.model.dao.MessageDao;
+import com.example.batchproject.model.mapper.MessageMapper;
 import com.example.batchproject.model.vo.DeviceInformation;
 import com.example.batchproject.model.vo.PushMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 
 @Service
-public class MessageService {
+public class MessageService{
 
-    private MessageDao messageDao;
+    private final MessageMapper messageMapper;
 
     @Autowired
-    public MessageService(MessageDao msgDao) {
-        this.messageDao = msgDao;
+    public MessageService(MessageMapper messageMapper) {
+        this.messageMapper = messageMapper;
     }
 
     public ArrayList<DeviceInformation> selectDeviceInformation() {
-        return messageDao.selectDeviceInformation();
+        return (ArrayList<DeviceInformation>) messageMapper.selectDeviceInformation();
     }
 
-    public ArrayList<PushMessage> selectMessageToSend() {return messageDao.selectMessageToSend();}
+    public ArrayList<PushMessage> selectMessageToSend() {return (ArrayList<PushMessage>)messageMapper.selectMessageToSend();}
 
     public int updateIsSentTrue(Long pushMessageNo) {
-        return messageDao.updateIsSentTrue(pushMessageNo);
+        return messageMapper.updateIsSentTrue(pushMessageNo);
     }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="batch">
+<mapper namespace="com.example.batchproject.model.mapper.MessageMapper">
     <select id="selectDeviceInformation" parameterType="int" resultType="com.example.batchproject.model.vo.DeviceInformation">
         select
             serial_number as serialNumber,
