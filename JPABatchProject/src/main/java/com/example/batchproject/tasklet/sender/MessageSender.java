@@ -37,6 +37,8 @@ public class MessageSender implements Tasklet {
 
         for (PushMessage message : messages) {
 
+            firebaseFCMService.sendMessageTo(message);
+
             log.info(message.toString());
 
             updateIsSentTrue(message);

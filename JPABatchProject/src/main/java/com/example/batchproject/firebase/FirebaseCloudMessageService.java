@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 @Slf4j
 public class FirebaseCloudMessageService {
-
+//https://velog.io/@skygl/FCM-Spring-Boot를-사용하여-웹-푸시-기능-구현하기
     @PostConstruct
     public void initialize() {
         try {
