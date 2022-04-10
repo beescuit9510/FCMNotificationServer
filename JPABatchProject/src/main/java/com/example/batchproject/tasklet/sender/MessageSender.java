@@ -10,6 +10,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Slf4j
@@ -18,8 +19,6 @@ public class MessageSender implements Tasklet {
     private messageRepository msgService;
     private StepDataBean stepDataBean;
     private FirebaseCloudMessageService firebaseFCMService;
-
-    private static final int OK_STATUS_CODE = 200;
 
     @Autowired
     public MessageSender(messageRepository msgService, StepDataBean stepDataBean, FirebaseCloudMessageService firebaseFCMService) {
@@ -34,16 +33,13 @@ public class MessageSender implements Tasklet {
 
         List<PushMessage> messages = stepDataBean.getPushMessages();
 
-        if(messages.size()==0) return RepeatStatus.FINISHED;
+        if (messages.size() == 0) return RepeatStatus.FINISHED;
 
         for (PushMessage message : messages) {
 
-            int statusCode = firebaseFCMService.sendMessageTo(message);
-
             log.info(message.toString());
-            log.info("STATUS CODE : "+statusCode);
 
-            updateIsSentTrue(statusCode, message);
+            updateIsSentTrue(message);
 
 
         }
@@ -51,10 +47,8 @@ public class MessageSender implements Tasklet {
 
     }
 
-    private void updateIsSentTrue(int statusCode, PushMessage message){
-        if (statusCode==OK_STATUS_CODE){
-            msgService.updateIsSentTrue(message.getPushMessageNo());
-        }
+    private void updateIsSentTrue(PushMessage message) {
+        msgService.updateIsSentTrue(message.getPushMessageNo());
     }
 }
 
