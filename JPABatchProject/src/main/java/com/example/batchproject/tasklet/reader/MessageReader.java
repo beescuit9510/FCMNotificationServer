@@ -17,19 +17,19 @@ import java.util.List;
 @Slf4j
 public class MessageReader implements Tasklet {
 
-    private messageRepository msgService;
+    private messageRepository msgRepository;
     private StepDataBean stepDataBean;
 
     @Autowired
-    public MessageReader(messageRepository msgService, StepDataBean stepDataBean) {
-        this.msgService = msgService;
+    public MessageReader(messageRepository msgRepository, StepDataBean stepDataBean) {
+        this.msgRepository = msgRepository;
         this.stepDataBean = stepDataBean;
     }
 
     @Override
-    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
+    public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext){
 
-        List<PushMessage> messages = msgService.selectMessageToSend();
+        List<PushMessage> messages = msgRepository.selectMessageToSend();
 
         stepDataBean.setPushMessages(messages);
 

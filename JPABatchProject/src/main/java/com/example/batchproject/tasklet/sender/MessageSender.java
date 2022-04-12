@@ -1,6 +1,6 @@
 package com.example.batchproject.tasklet.sender;
 
-import com.example.batchproject.firebase.FirebaseCloudMessageService;
+import com.example.batchproject.firebase.FCMService;
 import com.example.batchproject.model.repository.messageRepository;
 import com.example.batchproject.model.vo.PushMessage;
 import com.example.batchproject.model.vo.StepDataBean;
@@ -16,13 +16,13 @@ import java.util.List;
 @Slf4j
 public class MessageSender implements Tasklet {
 
-    private messageRepository msgService;
+    private messageRepository msgRepository;
     private StepDataBean stepDataBean;
-    private FirebaseCloudMessageService firebaseFCMService;
+    private FCMService firebaseFCMService;
 
     @Autowired
-    public MessageSender(messageRepository msgService, StepDataBean stepDataBean, FirebaseCloudMessageService firebaseFCMService) {
-        this.msgService = msgService;
+    public MessageSender(messageRepository msgRepository, StepDataBean stepDataBean, FCMService firebaseFCMService) {
+        this.msgRepository = msgRepository;
         this.stepDataBean = stepDataBean;
         this.firebaseFCMService = firebaseFCMService;
     }
@@ -39,18 +39,18 @@ public class MessageSender implements Tasklet {
 
             firebaseFCMService.sendMessageTo(message);
 
-            log.info(message.toString());
+            log.info("asfasdfasdfsadf"+message.toString());
 
             updateIsSentTrue(message);
 
-
         }
+
         return RepeatStatus.FINISHED;
 
     }
 
     private void updateIsSentTrue(PushMessage message) {
-        msgService.updateIsSentTrue(message.getPushMessageNo());
+        msgRepository.updateIsSentTrue(message.getPushMessageNo());
     }
 }
 

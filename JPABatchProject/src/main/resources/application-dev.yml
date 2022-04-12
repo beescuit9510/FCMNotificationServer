@@ -12,7 +12,8 @@ server :
 
 
 firebase :
-  configuration-file : firebase/notificationreceiver-service-key.json
+  configuration-path : firebase/notificationreceiver-service-key.json
+
   project-id : notificationreceiver-2bcff
 
 logging:

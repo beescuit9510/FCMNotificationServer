@@ -1,6 +1,6 @@
 package com.example.batchproject.config;
 
-import com.example.batchproject.firebase.FirebaseCloudMessageService;
+import com.example.batchproject.firebase.FCMService;
 import com.example.batchproject.listener.JobExecutionListener;
 import com.example.batchproject.model.repository.messageRepository;
 import com.example.batchproject.model.vo.StepDataBean;
@@ -12,6 +12,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,15 +26,15 @@ public class JobConfig {
     private JobBuilderFactory jobBuilderFactory;
     private StepBuilderFactory stepBuilderFactory;
     private JobExecutionListener jobListener;
-    private FirebaseCloudMessageService firebaseCloudMessageService;
+    private FCMService fcmService;
     private messageRepository messageService;
 
     @Autowired
-    public JobConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, JobExecutionListener jobListener, FirebaseCloudMessageService firebaseCloudMessageService, messageRepository messageService) {
+    public JobConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, JobExecutionListener jobListener, FCMService fcmService, messageRepository messageService) {
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.jobListener = jobListener;
-        this.firebaseCloudMessageService = firebaseCloudMessageService;
+        this.fcmService = fcmService;
         this.messageService = messageService;
     }
 
@@ -49,6 +50,7 @@ public class JobConfig {
 
     @Bean
     public Step readMessage() {
+        FlatFileItemReader a ;
         return stepBuilderFactory.get("readMessage")
                 .tasklet(messageReader())
                 .build();
@@ -69,13 +71,14 @@ public class JobConfig {
 
     @Bean
     public Tasklet messageSender() {
-        return new MessageSender(messageService, stepDataBean(), firebaseCloudMessageService);
+        return new MessageSender(messageService, stepDataBean(), fcmService);
     }
 
     @Bean
     public StepDataBean stepDataBean() {
         return new StepDataBean();
     }
+
 
 
 }
