@@ -13,7 +13,7 @@ public interface messageRepository extends JpaRepository<PushMessage, Long> {
 
 
     @Modifying
-    @Query(value = "SELECT * FROM push_message p WHERE p.is_sent = 0 ",nativeQuery = true)
+    @Query(value = "SELECT * FROM push_message p WHERE p.is_sent = 0 order by p.push_message_no",nativeQuery = true)
     List<PushMessage> selectMessageToSend();
 
     @Modifying

@@ -10,10 +10,12 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 
+@Component
 @Slf4j
 public class MessageReader implements Tasklet {
 
@@ -36,6 +38,7 @@ public class MessageReader implements Tasklet {
         stepContribution.setExitStatus(ExitStatus.COMPLETED);
 
         log.info("msg size : "+messages.size());
+
         messages.forEach(msg->log.info(msg.toString()));
 
         return RepeatStatus.FINISHED;
